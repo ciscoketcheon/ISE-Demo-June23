@@ -84,6 +84,9 @@ If prompted with an untrusted certificate warning, continue for the lab demo.
 
 Log in with the employee user account.
 
+- **Username**: `employee`
+- **Password**: `C1sco12345`
+
 ![Employee credential prompt](data/endpoint03.jpg)
 
 ### Step 10. Confirm VPN is connected
@@ -113,6 +116,9 @@ Try to open the manager-only records page. As employee, access should fail or ti
 ### Step 13. Re-authenticate VPN as manager
 
 Disconnect/reconnect and sign in with a manager account.
+
+- **Username**: `manager`
+- **Password**: `C1sco12345`
 
 ![Manager credential prompt](data/endpoint10.jpg)
 
@@ -149,3 +155,7 @@ At the end of this demo, you should have confirmed all of the following:
 
 - This is a training/demo environment. Certificate and timeout behavior may vary by lab instance.
 - If policy behavior does not match expected results, review the **Remote Access VPN** policy set, identity source sequence, and authorization rules.
+
+---
+
+[Next: ISE Endpoint Quarantine and Access Control →](index2.md)
