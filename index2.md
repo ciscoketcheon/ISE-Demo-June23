@@ -5,7 +5,11 @@ title: ISE Endpoint Quarantine and Access Control
 
 # ISE Endpoint Quarantine and Access Control
 
-This guide demonstrates how to block a specific endpoint from network access using an ISE Endpoint Identity Group and a deny authorization policy — without changing user credentials.
+> **Scenario:** The security team has received a report that endpoint **CESA4** may have been compromised. The device is still active on the network and the user account credentials remain valid — revoking the password alone is not enough. The company needs a fast, surgical way to block that specific device from rejoining the network while the incident is investigated, without impacting other users or endpoints.
+>
+> This is exactly the use case for ISE Endpoint Identity Groups. By assigning CESA4's MAC address to a quarantine group and binding a deny policy to that group, access is cut off at the next authentication attempt — no firewall changes, no credential resets required.
+
+This guide walks through that workflow end-to-end.
 
 [← Demo 1: ISE Policy and User Onboard](index.md)
 
@@ -115,6 +119,8 @@ Return to **Administration > Identity Management > Groups**, open **QUARANTINE_E
 ### Step 13. Select the endpoint MAC address
 
 In the **Endpoints** picker, select the MAC address of the device to quarantine (`00:50:56:A9:8F:4C`) and confirm. Click **Save** on the group page.
+
+> **Note:** This is the same endpoint MAC address seen in Demo 1 when the `manager` user authenticated via VPN. If you are unsure of the MAC address, verify it first by checking **Operations > RADIUS > Live Logs** — the **Endpoint ID** column in the `manager` session row will show the correct value.
 
 ![Endpoints picker showing MAC addresses for selection](data2/d2-13.jpg)
 
