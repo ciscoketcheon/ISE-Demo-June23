@@ -319,7 +319,10 @@ ACS:CiscoSecure-Defined-ACL=#ACSACL#-IP-POV_dACL-6a356c17
 
 ### Step 34. SSH to ASAv-vpn using PuTTY
 
-From the workstation taskbar, open **PuTTY**. In the **Saved Sessions** list, select **ASAv-vpn** and click **Open**.
+From the workstation taskbar, open **PuTTY**. In the **Saved Sessions** list, select **ASAv-vpn** and click **Open**. When prompted, log in with the ASA credentials:
+
+- **Username**: `admin`
+- **Password**: `C1sco12345`
 
 ![PuTTY Configuration with ASAv-vpn session selected](data3/d3-36.jpg)
 
