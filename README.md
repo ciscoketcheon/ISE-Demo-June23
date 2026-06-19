@@ -6,10 +6,11 @@ Published at: **https://ciscoketcheon.github.io/ISE-Demo-June23/**
 
 ## Demos
 
-| # | Title | Description |
-|---|-------|-------------|
-| 1 | [ISE Policy and User Onboard](index.md) | VPN-based user onboarding with role-based authorization (employee vs. manager) |
-| 2 | [ISE Endpoint Quarantine and Access Control](index2.md) | Block a specific device by MAC address using an endpoint identity group and deny policy |
+| # | Title | Difficulty | Description |
+|---|-------|------------|-------------|
+| 1 | [ISE Policy and User Onboard](index.md) | ★☆☆ Beginner | VPN-based user onboarding with role-based authorization (employee vs. manager) |
+| 2 | [ISE Endpoint Quarantine and Access Control](index2.md) | ★★☆ Intermediate | Block a specific device by MAC address using an endpoint identity group and deny policy |
+| 3 | [ISE POV Testing with dACL](index3.md) | ★★★ Advanced | Create an isolated POV test policy with a dedicated AD group, user, dACL, and authorization rule — without touching production rules |
 
 ## What the Series Covers
 
@@ -17,9 +18,11 @@ Published at: **https://ciscoketcheon.github.io/ISE-Demo-June23/**
 - User onboarding via Remote Access VPN
 - Role-based authorization (Tier1/Tier2 users)
 - Endpoint-level quarantine using MAC address and Endpoint Identity Groups
-- Verifying policy outcomes in ISE Live Logs
+- Isolated POV testing with Downloadable ACLs and scoped authorization rules
+- Verifying policy outcomes in ISE Live Logs and on the ASA firewall
 
 ## Assets
 
 - Screenshots for Demo 1 are in [data](data)
 - Screenshots for Demo 2 are in [data2](data2)
+- Screenshots for Demo 3 are in [data3](data3)

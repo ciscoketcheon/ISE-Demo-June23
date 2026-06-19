@@ -5,6 +5,8 @@ title: ISE Policy and User Onboard
 
 # ISE Policy and User Onboard
 
+**Difficulty:** ★☆☆ Beginner
+
 This guide walks through Identity Services Engine (ISE) policy enforcement and user onboarding using Remote Access VPN as the entry point.
 
 ## Table of Contents

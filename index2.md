@@ -5,6 +5,8 @@ title: ISE Endpoint Quarantine and Access Control
 
 # ISE Endpoint Quarantine and Access Control
 
+**Difficulty:** ★★☆ Intermediate
+
 > **Scenario:** The security team has received a report that endpoint **CESA4** may have been compromised. The device is still active on the network and the user account credentials remain valid — revoking the password alone is not enough. The company needs a fast, surgical way to block that specific device from rejoining the network while the incident is investigated, without impacting other users or endpoints.
 >
 > This is exactly the use case for ISE Endpoint Identity Groups. By assigning CESA4's MAC address to a quarantine group and binding a deny policy to that group, access is cut off at the next authentication attempt — no firewall changes, no credential resets required.
@@ -186,4 +188,4 @@ By the end of this demo you should have confirmed:
 
 ---
 
-[← Demo 1: ISE Policy and User Onboard](index.md)
+[← Demo 1: ISE Policy and User Onboard](index.md) | [Next: ISE POV Testing with dACL →](index3.md)
