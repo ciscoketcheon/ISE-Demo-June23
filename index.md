@@ -1,11 +1,22 @@
 ---
 layout: default
-title: Demo ISE Training Guide
+title: ISE Policy and User Onboard
 ---
 
-# Cisco ISE Remote Access Demo - Step-by-Step Training Guide
+# ISE Policy and User Onboard
 
-This guide walks through a simple Identity Services Engine (ISE) remote-access training flow using the screenshots in this repository.
+This guide walks through Identity Services Engine (ISE) policy enforcement and user onboarding using Remote Access VPN as the entry point.
+
+## Table of Contents
+
+- [Objective](#objective)
+- [Lab Topology and Entry Point](#lab-topology-and-entry-point)
+- [Access Cisco ISE](#access-cisco-ise)
+- [Endpoint Validation — Employee Access](#endpoint-validation---employee-access)
+- [Endpoint Validation — Manager Access](#endpoint-validation---manager-access)
+- [Verify in ISE Live Logs](#verify-in-ise-live-logs)
+- [Expected Outcome](#expected-outcome)
+- [Notes](#notes)
 
 ## Objective
 

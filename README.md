@@ -1,18 +1,21 @@
-# Demo ISE Training
+# Cisco ISE Demo Series
 
-Simple step-by-step Cisco ISE remote access demo.
+Step-by-step Cisco ISE training demos.
 
-## Start Here
+## Demos
 
-- View the full guide: [Demo ISE Training Guide](index.md)
+| # | Title | Description |
+|---|-------|-------------|
+| 1 | [ISE Policy and User Onboard](index.md) | VPN-based user onboarding with role-based authorization (employee vs. manager) |
+| 2 | *(Coming soon)* | Additional ISE use case |
 
-## What You Will Validate
+## What the Series Covers
 
-- VPN authentication through Cisco ISE
-- Role-based authorization for employee vs manager users
-- Access control behavior in the corporate portal
-- Authorization outcomes in ISE Live Logs
+- Identity-driven policy enforcement in Cisco ISE
+- User onboarding via different network access methods
+- Role-based authorization and access control
+- Verifying policy outcomes in ISE Live Logs
 
 ## Assets
 
-- Screenshots used by the guide are in [data](data)
+- Screenshots used by each guide are in [data](data)
