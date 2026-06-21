@@ -4,6 +4,20 @@ Step-by-step Cisco ISE training demos.
 
 Published at: **https://ciscoketcheon.github.io/ISE-Demo-June23/**
 
+## Enrollment Key Protection
+
+All three demos are protected by a shared client-side enrollment key gate.
+
+1. Open `enrollment-gate.js`.
+2. Set `ENROLLMENT_KEY` to the company name you want to distribute on the day.
+3. Update `GATE_VERSION` whenever you rotate the key (this forces a fresh prompt for prior visitors).
+
+The gate script is loaded in:
+
+- `index.md`
+- `index2.md`
+- `index3.md`
+
 ## Demos
 
 | # | Title | Difficulty | Description |

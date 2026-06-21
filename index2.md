@@ -3,6 +3,8 @@ layout: default
 title: ISE Endpoint Quarantine and Access Control
 ---
 
+<script src="enrollment-gate.js" defer></script>
+
 # ISE Endpoint Quarantine and Access Control
 
 **Difficulty:** ★★☆ Intermediate

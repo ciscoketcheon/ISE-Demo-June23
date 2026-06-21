@@ -3,6 +3,8 @@ layout: default
 title: ISE Policy and User Onboard
 ---
 
+<script src="enrollment-gate.js" defer></script>
+
 # ISE Policy and User Onboard
 
 **Difficulty:** ★☆☆ Beginner

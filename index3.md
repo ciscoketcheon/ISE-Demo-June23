@@ -3,6 +3,8 @@ layout: default
 title: ISE POV Testing with dACL
 ---
 
+<script src="enrollment-gate.js" defer></script>
+
 # ISE POV Testing with dACL
 
 **Difficulty:** ★★★ Advanced
