@@ -273,7 +273,43 @@ Click **Submit**.
 
 **ACL_REDIRECT on the ASA:**
 
-ISE pushes only the ACL *name* `ACL_REDIRECT` to the ASA via RADIUS — it does not push the ACL content itself. The ACL must already exist on the ASA before this profile is assigned. Verify it with:
+ISE pushes only the ACL *name* `ACL_REDIRECT` to the ASA via RADIUS — it does not push the ACL content itself. The ACL must already exist on the ASA before this profile is assigned.
+
+To configure it, open **PuTTY** on the jump host, select the **ASAv** saved session entry, and click **Open**. Log in with `admin` / `C1sco12345`. Once logged in, enter privileged EXEC mode and then global configuration mode:
+
+```
+enable
+config t
+```
+
+Then enter the following ACL commands:
+
+```
+access-list ACL_REDIRECT extended deny udp any any eq domain
+access-list ACL_REDIRECT extended deny ip any host 198.18.133.27
+access-list ACL_REDIRECT extended deny icmp any any
+access-list ACL_REDIRECT extended permit tcp any any eq www
+access-list ACL_REDIRECT extended permit tcp any any eq https
+```
+
+> **Guacamole copy-paste tip:** Standard Ctrl+V does not work inside a Guacamole terminal session. Use the Guacamole clipboard sidebar instead:
+>
+> | Step | Mac | Windows |
+> |------|-----|---------|
+> | Open sidebar | **Ctrl+Command+Shift** | **Ctrl+Alt+Shift** |
+> | Paste text into the **Clipboard** box in the sidebar | same | same |
+> | Close sidebar | **Ctrl+Command+Shift** | **Ctrl+Alt+Shift** |
+> | Paste into terminal | **Right-click** | **Right-click** |
+>
+> Paste one line at a time to avoid the ASA misinterpreting rapid input.
+
+Once entered, write the configuration to memory:
+
+```
+write memory
+```
+
+Verify it with:
 
 ```
 show run | i ACL_REDIRECT
@@ -378,8 +414,6 @@ Open **Cisco Secure Client** on CESA4 and connect to `198.18.133.100`:
 - **Username**: `employee`
 - **Password**: `C1sco12345`
 
-![Cisco Secure Client VPN connection dialog for employee user](data4/d4-20.jpg)
-
 Once the VPN session establishes, ISE evaluates the session and finds `PostureStatus = Unknown` — the compliance module is not yet installed. The `Posture_Unknown` authorization rule matches and ISE pushes the `Posture_Redirect_Authz` profile, which redirects HTTP/HTTPS traffic to the Client Provisioning Portal. Open any website in the browser on CESA4 — the request is intercepted by the ASA and redirected to the ISE **Device Security Check** portal page.
 
 ![ISE Client Provisioning Portal showing Device Security Check page with Start button](data4/d4-20b.jpg)
@@ -391,6 +425,10 @@ Click **Start**. The portal expands to the **This is my first time here** sectio
 ![ISE Client Provisioning Portal showing first-time agent install instructions with 4-minute countdown timer](data4/d4-20c.jpg)
 
 Once the module installs, it contacts ISE automatically and runs the posture assessment. ISE sends a CoA to the ASA and the session transitions from Unknown to Compliant or NonCompliant based on the firewall check result.
+
+
+![Cisco Secure Client VPN connection dialog for employee user](data4/d4-20.jpg)
+
 
 ### Step 21. Observe non-compliant result — full access still granted
 
