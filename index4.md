@@ -113,7 +113,8 @@ The posture agent profile controls how the compliance module behaves after insta
 In the **Resources** section, click **Add > ISE Posture Agent Profile**. Fill in:
 
 - **Name**: `SC_Win_Posture_Profile`
-- Leave all **Agent Behavior** settings at their defaults
+- Under **Agent Behavior**, enable **Display Rescan Button** — this makes the **Scan Again** button visible in the Cisco Secure Client ISE Posture tile on the endpoint. Without this, the button does not appear and the user must reconnect VPN to trigger a re-assessment.
+- Leave all other **Agent Behavior** settings at their defaults
 
 Scroll down to the **Server name rules** field (required) and enter `*`.
 
@@ -393,7 +394,7 @@ Click **+** in the Conditions column for the `Posture_Compliant` row. In Conditi
 - **Attribute**: PostureStatus
 - **Value**: Compliant
 
-Click **Use**. Set **Profiles** to **Tier1 Users** (full access). Click **Save**.
+Click **Use**. Set **Profiles** to **PermitAccess**. Click **Save**.
 
 ![Posture_Compliant rule with Session PostureStatus equals Compliant and Tier1 Users profile, Save highlighted](data4/d4-18.jpg)
 

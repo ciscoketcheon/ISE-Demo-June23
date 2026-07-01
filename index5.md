@@ -50,6 +50,7 @@ Configure:
 
 ```
 permit udp any any eq 53
+permit icmp any host 198.18.133.27
 permit tcp any host 198.18.133.27 eq 443
 permit tcp any host 198.18.133.27 eq 8443
 deny   ip  any any
@@ -58,6 +59,7 @@ deny   ip  any any
 | Line | Effect |
 |------|--------|
 | `permit udp ... eq 53` | DNS — the endpoint must be able to resolve hostnames to reach the ISE portal |
+| `permit icmp any host 198.18.133.27` | ICMP to the ISE PSN — allows `ping` for troubleshooting connectivity to ISE while quarantined |
 | `permit tcp any host 198.18.133.27 eq 443` | HTTPS to the ISE PSN — covers the remediation portal and posture agent traffic |
 | `permit tcp any host 198.18.133.27 eq 8443` | ISE Guest/Posture portal — the remediation landing page the user sees in their browser |
 | `deny ip any any` | All other traffic is blocked — corporate resources are unreachable until the device passes posture |
@@ -77,14 +79,15 @@ Configure:
 - **Name**: `Posture_Quarantine`
 - **Access Type**: `ACCESS_ACCEPT`
 - Under **Common Tasks**, check **DACL Name** → select `Posture_Quarantine_dACL`
-- Under **Common Tasks**, check **Web Redirection**:
-  - **Type**: Centralized Web Auth
-  - **ACL**: `ACL_REDIRECT`
-  - **Value**: My Devices Portal (or a custom remediation page)
+- Leave **Web Redirection unchecked**
 
 Click **Submit**.
 
-The combined effect: the endpoint gets network access only to DNS and the ISE portal, and the browser is immediately redirected to the remediation landing page.
+> **Why no browser redirect?** The Cisco Secure Client ISE Compliance module is already installed on the endpoint from the previous provisioning step. When ISE pushes `Posture_Quarantine` via CoA, the posture agent detects the policy change and **notifies the user directly via a system tray popup** — no browser interception needed. This is more reliable than CPP redirect, which can fail on HTTPS sites or when the browser has no cached HTTP traffic to intercept.
+>
+> The dACL alone is enough to restrict the network. The agent handles the user-facing message.
+
+The combined effect: the dACL restricts the endpoint to DNS only, and the Cisco Secure Client posture agent surfaces a native notification telling the user their device is non-compliant.
 
 ![Authorization Profile for Posture_Quarantine with quarantine dACL and web redirect configured](data5/d5-02.jpg)
 
@@ -110,13 +113,15 @@ The ISE Posture module runs, detects the firewall is off, and reports **Non-Comp
 
 ![Cisco Secure Client ISE Posture tile showing Non-Compliant with quarantine access indicated](data5/d5-04.jpg)
 
-### Step 5. Confirm corporate resources are blocked — remediation portal is reachable
+### Step 5. Confirm corporate resources are blocked and check Secure Client notification
 
 Open a browser on CESA4 and attempt to navigate to `corporate-records.dcloud.cisco.com`. The site does not load — the quarantine dACL blocks all non-ISE traffic.
 
-The browser is automatically redirected to the ISE portal at `https://198.18.133.27:8443/portal/...`, displaying the remediation instructions configured in Demo 4 Step 8.
+Check the Cisco Secure Client system tray icon. The ISE Posture tile will show **Non-Compliant** and surface a notification indicating the device does not meet policy requirements. No browser redirect occurs — the posture agent handles user notification directly.
 
-![Browser showing ISE remediation portal with fix instructions, corporate site blocked](data5/d5-05.jpg)
+To confirm basic connectivity to ISE while quarantined, run `ping 198.18.133.27` from the endpoint. ICMP to the ISE PSN is permitted by the dACL.
+
+![Cisco Secure Client showing Non-Compliant posture status with corporate site blocked in browser](data5/d5-05.jpg)
 
 ### Step 6. Verify quarantine in ISE Live Logs
 
@@ -142,9 +147,11 @@ No help desk call is needed. The user resolved the issue using the instructions 
 
 ### Step 8. Trigger posture re-assessment from Cisco Secure Client
 
-In Cisco Secure Client, click the **ISE Posture** tile and select **Scan Again**. The posture module re-checks all conditions against the current endpoint state.
+On CESA4, open Cisco Secure Client. The **ISE Posture** tile shows **Non-Compliant**. Click **Scan Again** to trigger an immediate re-assessment — the posture module re-checks all conditions against the current endpoint state.
 
-> The re-assessment also runs automatically after the configured timer (default 5 minutes). **Scan Again** lets you demonstrate the result immediately without waiting.
+> If **Scan Again** is not visible, go back to index4.md Step 5b and enable **Display Rescan Button** in the posture agent profile, then reconnect VPN to pick up the updated profile.
+
+> The re-assessment also runs automatically after the configured remediation timer (default 5 minutes) if you prefer to wait.
 
 ![Cisco Secure Client ISE Posture tile with Scan Again option highlighted](data5/d5-08.jpg)
 
@@ -154,10 +161,11 @@ In Cisco Secure Client, click the **ISE Posture** tile and select **Scan Again**
 
 When the posture module reports **Compliant**, ISE immediately sends a **Change of Authorization (CoA)** RADIUS packet to the ASA. The ASA re-evaluates the session and applies the updated authorization result without dropping the tunnel.
 
-Navigate to **Operations > RADIUS > Live Logs**. A new event appears for `employee`:
+Navigate to **Operations > RADIUS > Live Logs**. A new event appears for the endpoint:
 
+- **Event**: `5205 Dynamic Authorization succeeded`
 - **Authorization Policy**: `Remote Access VPN >> Posture_Compliant`
-- **Authorization Profile**: `Tier1 Users`
+- **Authorization Result**: `PermitAccess`
 
 ![ISE RADIUS Live Logs showing CoA event for employee with Posture_Compliant rule and Tier1 Users profile](data5/d5-09.jpg)
 
