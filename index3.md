@@ -390,4 +390,4 @@ By the end of this demo you should have confirmed:
 
 ---
 
-[← Demo 2: ISE Endpoint Quarantine and Access Control](index2.md)
+[← Demo 2: ISE Endpoint Quarantine and Access Control](index2.md) | [Next: ISE VPN Posture Assessment →](index4.md)
